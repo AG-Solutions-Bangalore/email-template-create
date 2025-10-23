@@ -17,14 +17,14 @@ import {
 export const VaishnavMail = () => (
   <Html>
     <Head />
-    <Preview>Thank you for updating your membership data</Preview>
+    <Preview>Thank you for updating your membership information</Preview>
     <Body style={main}>
       <Container style={container}>
         
 
         {/* Profile Section - Single Column */}
         <Section style={contentSection}>
-          <Text style={thankYouText}>Thank you for updating your membership data</Text>
+          <Text style={thankYouText}>Thank you. Kindly find the details below for your reference.</Text>
           
           <Section style={profileCard}>
             <Row>
@@ -41,57 +41,97 @@ export const VaishnavMail = () => (
             
             <Section style={infoSection}>
               <Row style={infoRow}>
-                <Column>
+                <Column style={labelColumn}>
                   <Text style={label}>Category</Text>
+                </Column>
+                <Column style={colonColumn}>
+                  <Text style={colon}>:</Text>
+                </Column>
+                <Column style={valueColumn}>
                   <Text style={value}>Life Membership</Text>
                 </Column>
               </Row>
               
               <Row style={infoRow}>
-                <Column>
+                <Column style={labelColumn}>
                   <Text style={label}>Gender</Text>
+                </Column>
+                <Column style={colonColumn}>
+                  <Text style={colon}>:</Text>
+                </Column>
+                <Column style={valueColumn}>
                   <Text style={value}>Male</Text>
                 </Column>
               </Row>
               
               <Row style={infoRow}>
-                <Column>
+                <Column style={labelColumn}>
                   <Text style={label}>Full Name</Text>
+                </Column>
+                <Column style={colonColumn}>
+                  <Text style={colon}>:</Text>
+                </Column>
+                <Column style={valueColumn}>
                   <Text style={value}>Kartik Raj</Text>
                 </Column>
               </Row>
               
               <Row style={infoRow}>
-                <Column>
-                  <Text style={label}>DOB</Text>
+                <Column style={labelColumn}>
+                  <Text style={label}>Date of Birth</Text>
+                </Column>
+                <Column style={colonColumn}>
+                  <Text style={colon}>:</Text>
+                </Column>
+                <Column style={valueColumn}>
                   <Text style={value}>19-09-1985</Text>
                 </Column>
               </Row>
               
               <Row style={infoRow}>
-                <Column>
+                <Column style={labelColumn}>
                   <Text style={label}>Ganti</Text>
+                </Column>
+                <Column style={colonColumn}>
+                  <Text style={colon}>:</Text>
+                </Column>
+                <Column style={valueColumn}>
                   <Text style={value}>Raj</Text>
                 </Column>
               </Row>
               
               <Row style={infoRow}>
-                <Column>
+                <Column style={labelColumn}>
                   <Text style={label}>Mobile</Text>
+                </Column>
+                <Column style={colonColumn}>
+                  <Text style={colon}>:</Text>
+                </Column>
+                <Column style={valueColumn}>
                   <Text style={value}>9874563210</Text>
                 </Column>
               </Row>
               
               <Row style={infoRow}>
-                <Column>
+                <Column style={labelColumn}>
                   <Text style={label}>Email</Text>
+                </Column>
+                <Column style={colonColumn}>
+                  <Text style={colon}>:</Text>
+                </Column>
+                <Column style={valueColumn}>
                   <Text style={value}>abc@gmail.com</Text>
                 </Column>
               </Row>
               
               <Row style={infoRow}>
-                <Column>
+                <Column style={labelColumn}>
                   <Text style={label}>Address</Text>
+                </Column>
+                <Column style={colonColumn}>
+                  <Text style={colon}>:</Text>
+                </Column>
+                <Column style={valueColumn}>
                   <Text style={value}>abc street</Text>
                 </Column>
               </Row>
@@ -107,7 +147,7 @@ export const VaishnavMail = () => (
         {/* Footer */}
         <Section style={footer}>
           <Text style={footerText}>
-            If you face any difficulty, please contact <Link href="tel:+918867171061" style={phoneLink}>+91 8867171061</Link>
+            If you require any changes, kindly reply to this email. <Link href="mailto:reply@vaishnavcommunity.com" style={mailLink}>click here</Link>
           </Text>
           <Text style={copyright}>
             © 2024 Vaishnav Community
@@ -136,8 +176,6 @@ const container = {
   overflow: 'hidden',
   maxWidth: '500px',
 };
-
-
 
 const contentSection = {
   padding: '15px 20px',
@@ -172,14 +210,38 @@ const infoSection = {
 const infoRow = {
   margin: '8px 0',
   padding: '0',
+  display: 'flex',
+};
+
+const labelColumn = {
+  width: '80px',
+  paddingRight: '0px',
+};
+
+const colonColumn = {
+  width: '10px',
+};
+
+const valueColumn = {
+  flex: 1,
 };
 
 const label = {
   color: '#666',
   fontSize: '12px',
   fontWeight: 'bold',
-  margin: '0 0 2px 0',
+  margin: '0',
   lineHeight: '1.2',
+  textAlign: 'left' as const,
+};
+
+const colon = {
+  color: '#666',
+  fontSize: '12px',
+  fontWeight: 'bold',
+  margin: '0',
+  lineHeight: '1.2',
+  textAlign: 'right' as const,
 };
 
 const value = {
@@ -188,6 +250,7 @@ const value = {
   fontWeight: 'normal',
   margin: '0',
   lineHeight: '1.3',
+  paddingLeft: '8px',
 };
 
 const statusSection = {
@@ -220,7 +283,7 @@ const footerText = {
   lineHeight: '1.3',
 };
 
-const phoneLink = {
+const mailLink = {
   color: '#E65100',
   textDecoration: 'underline',
 };
