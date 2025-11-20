@@ -1,761 +1,513 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html
-  data-source-file="emails/ut-quotation.jsx"
-  data-source-line="14"
-  dir="ltr"
-  lang="en"
->
-  <head data-source-file="emails/ut-quotation.jsx" data-source-line="15">
-    <link
-      rel="preload"
-      as="image"
-      href="https://theunitedtraders.co.in//crmapi//public//assets//images//company_images//logo.png"
-    />
-    <link
-      rel="preload"
-      as="image"
-      href="https://theunitedtraders.co.in//crmapi//public//assets//images//company_images//sign.jpeg"
-    />
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-    <meta name="x-apple-disable-message-reformatting" />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax Invoice</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f4f6;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border: 2px solid #1e3a8a;
+      }
+      .header {
+        border-bottom: 2px solid #1e3a8a;
+        padding: 15px;
+        background-color: #ffffff;
+        position: relative;
+      }
+      .header-content {
+        display: table;
+        width: 100%;
+      }
+      .header-left {
+        display: table-cell;
+        width: 70%;
+        vertical-align: top;
+      }
+      .header-right {
+        display: table-cell;
+        width: 30%;
+        text-align: right;
+        vertical-align: top;
+      }
+      .company-name {
+        font-size: 32px;
+        font-weight: bold;
+        color: #1e3a8a;
+        margin-bottom: 10px;
+      }
+      .company-details {
+        font-size: 12px;
+        color: #374151;
+        line-height: 1.6;
+      }
+      .company-logo {
+        width: 120px;
+        height: 144px;
+        object-fit: contain;
+      }
+      .invoice-title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #374151;
+        padding: 10px 0;
+      }
+      .billing-info {
+        display: table;
+        width: 100%;
+        padding: 15px;
+        border-bottom: 1px solid #d1d5db;
+      }
+      .billing-to {
+        display: table-cell;
+        width: 50%;
+        padding-right: 30px;
+        vertical-align: top;
+      }
+      .billing-details {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+      }
+      .billing-row {
+        margin-bottom: 8px;
+        font-size: 11px;
+      }
+      .billing-label {
+        font-weight: bold;
+        color: #374151;
+        display: inline-block;
+        width: 110px;
+      }
+      .main-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+      .main-table thead {
+        background-color: #f3f4f6;
+      }
+      .main-table th {
+        border: 2px solid #1e3a8a;
+        padding: 8px;
+        text-align: left;
+        font-weight: 600;
+      }
+      .main-table td {
+        border: 2px solid #1e3a8a;
+        padding: 8px;
+      }
+      .summary-section {
+        padding: 15px;
+        width: 80%;
+      }
+      .summary-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #1f2937;
+        margin-bottom: 10px;
+      }
+      .summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+        border: 1px solid #1f2937;
+      }
+      .summary-table th,
+      .summary-table td {
+        border: 1px solid #1f2937;
+        padding: 4px;
+      }
+      .summary-table thead {
+        background-color: #f3f4f6;
+      }
+      .summary-total {
+        text-align: right;
+        margin-top: 8px;
+        padding-top: 4px;
+        border-top: 2px solid #1f2937;
+      }
+      .summary-total-label {
+        font-weight: bold;
+        font-size: 11px;
+      }
+      .summary-total-amount {
+        color: #dc2626;
+        font-weight: bold;
+      }
+      .footer-section {
+        border-top: 2px solid #1e3a8a;
+      }
+      .amount-words {
+        display: table;
+        width: 100%;
+        padding: 15px;
+        border-bottom: 2px solid #1e3a8a;
+      }
+      .amount-words-left {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+        font-size: 11px;
+      }
+      .amount-words-right {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+        font-size: 11px;
+      }
+      .tax-row {
+        display: table;
+        width: 100%;
+        margin-bottom: 4px;
+      }
+      .tax-label {
+        display: table-cell;
+        text-align: left;
+      }
+      .tax-amount {
+        display: table-cell;
+        text-align: right;
+        font-weight: 600;
+      }
+      .bank-section {
+        display: table;
+        width: 100%;
+        padding: 15px;
+        border-bottom: 1px solid #1e3a8a;
+      }
+      .bank-details {
+        display: table-cell;
+        width: 50%;
+        font-size: 11px;
+        vertical-align: top;
+      }
+      .signature-section {
+        display: table-cell;
+        width: 50%;
+        text-align: right;
+        vertical-align: top;
+      }
+      .signature-img {
+        width: 112px;
+        height: auto;
+        margin-bottom: 10px;
+      }
+      .contact-footer {
+        padding: 15px;
+        border-top: 2px solid #1e3a8a;
+        font-size: 11px;
+        color: #374151;
+      }
+      .contact-icons {
+        display: inline-block;
+        margin-left: 20px;
+      }
+      .contact-item {
+        display: inline-block;
+        margin: 0 10px;
+      }
+      .icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-color: #1e3a8a;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-right: 4px;
+      }
+    </style>
   </head>
-  <body
-    data-source-file="emails/ut-quotation.jsx"
-    data-source-line="18"
-    style="background-color: #f8fafc"
-  >
-    <!--$-->
-    <div
-      style="
-        display: none;
-        overflow: hidden;
-        line-height: 1px;
-        opacity: 0;
-        max-height: 0;
-        max-width: 0;
-      "
-      data-skip-in-text="true"
-      data-source-file="emails/ut-quotation.jsx"
-      data-source-line="16"
-    >
-      The United Traders – Quotation
-      <div>
-         ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="header-content">
+          <div class="header-left">
+            <div class="company-name">THE UNITED TRADERS (Regd.)</div>
+            <div class="company-details">
+              <p><strong>Dealers in : KRAFT PAPER & DUPLEX BOARD</strong></p>
+              <p style="margin-top: 8px">
+                No. 123, Commercial Street, Bangalore - 560001, Karnataka, India
+              </p>
+              <div style="margin-top: 15px">
+                <span style="margin-right: 20px"
+                  ><strong>GSTIN :</strong> 29AABCT1234F1Z5</span
+                >
+                <span><strong>Pan No :</strong> AABCT1234F</span>
+              </div>
+            </div>
+          </div>
+          <div class="header-right">
+            <img
+              src="https://via.placeholder.com/120x144?text=LOGO"
+              alt="Company Logo"
+              class="company-logo"
+            />
+          </div>
+        </div>
+        <div class="invoice-title">TAX INVOICE</div>
       </div>
-    </div>
-    <table
-      border="0"
-      width="100%"
-      cellpadding="0"
-      cellspacing="0"
-      role="presentation"
-      align="center"
-    >
-      <tbody>
-        <tr>
-          <td
+
+      <!-- Billing Information -->
+      <div class="billing-info">
+        <div class="billing-to">
+          <p
             style="
-              background-color: #f8fafc;
-              font-family: Arial, Helvetica, sans-serif;
-              padding: 16px 0;
+              font-size: 11px;
+              font-weight: bold;
+              color: #374151;
+              margin-bottom: 8px;
             "
           >
-            <table
-              align="center"
-              width="100%"
-              data-source-file="emails/ut-quotation.jsx"
-              data-source-line="19"
-              border="0"
-              cellpadding="0"
-              cellspacing="0"
-              role="presentation"
+            To
+          </p>
+          <h3
+            style="
+              font-weight: bold;
+              color: #1e3a8a;
+              margin-bottom: 5px;
+              font-size: 14px;
+            "
+          >
+            ABC Paper Mills Pvt. Ltd.
+          </h3>
+          <p style="font-size: 11px; color: #374151; line-height: 1.6">
+            Plot No. 45, Industrial Area<br />
+            Phase II, GIDC Estate<br />
+            Mumbai - 400053<br />
+            Maharashtra, India
+          </p>
+        </div>
+        <div class="billing-details">
+          <div class="billing-row">
+            <span class="billing-label">Invoice No. :</span>
+            <span>TUT/2024-25/001234</span>
+          </div>
+          <div class="billing-row">
+            <span class="billing-label">Invoice Date :</span>
+            <span>20/11/2025</span>
+          </div>
+          <div class="billing-row">
+            <span class="billing-label">Service State :</span>
+            <span>Maharashtra</span>
+          </div>
+          <div class="billing-row">
+            <span class="billing-label">Party GST :</span>
+            <span>27AABCP1234M1ZK</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Table -->
+      <table class="main-table">
+        <thead>
+          <tr>
+            <th style="width: 60px">Sl. No.</th>
+            <th>Description of Goods / Services</th>
+            <th style="width: 120px">HSN Code</th>
+            <th style="width: 150px; text-align: right">Total Value (INR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1.</td>
+            <td>
+              Commission on sale of Kraft Paper and Duplex Board as per details
+              below
+            </td>
+            <td>998599</td>
+            <td style="text-align: right; font-weight: 600">45,250.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Summary Section -->
+      <div class="summary-section">
+        <div class="summary-title">Summary</div>
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th style="text-align: left">Date</th>
+              <th style="text-align: left">Bill Ref.</th>
+              <th style="text-align: left">BF</th>
+              <th style="text-align: right">Quantity</th>
+              <th style="text-align: right">Rate</th>
+              <th style="text-align: right">Disc. Rate</th>
+              <th style="text-align: right">Diff.</th>
+              <th style="text-align: right">Commn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>15/10/2025</td>
+              <td>INV-2024-001</td>
+              <td>22 GSM</td>
+              <td style="text-align: right">25.50</td>
+              <td style="text-align: right">32,500</td>
+              <td style="text-align: right">31,800</td>
+              <td style="text-align: right">700</td>
+              <td style="text-align: right">17,850.00</td>
+            </tr>
+            <tr>
+              <td>18/10/2025</td>
+              <td>INV-2024-002</td>
+              <td>24 GSM</td>
+              <td style="text-align: right">18.75</td>
+              <td style="text-align: right">34,200</td>
+              <td style="text-align: right">33,600</td>
+              <td style="text-align: right">600</td>
+              <td style="text-align: right">11,250.00</td>
+            </tr>
+            <tr>
+              <td>22/10/2025</td>
+              <td>INV-2024-003</td>
+              <td>20 GSM</td>
+              <td style="text-align: right">22.00</td>
+              <td style="text-align: right">31,000</td>
+              <td style="text-align: right">30,275</td>
+              <td style="text-align: right">725</td>
+              <td style="text-align: right">15,950.00</td>
+            </tr>
+            <tr>
+              <td>25/10/2025</td>
+              <td>INV-2024-004</td>
+              <td>26 GSM</td>
+              <td style="text-align: right">5.00</td>
+              <td style="text-align: right">35,800</td>
+              <td style="text-align: right">35,560</td>
+              <td style="text-align: right">240</td>
+              <td style="text-align: right">200.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="text-align: right; width: 192px; float: right">
+          <div class="summary-total">
+            <span class="summary-total-label">Total = </span>
+            <span class="summary-total-amount">Rs. 45,250.00</span>
+          </div>
+        </div>
+        <div style="clear: both"></div>
+      </div>
+
+      <!-- Footer Section -->
+      <div class="footer-section">
+        <div class="amount-words">
+          <div class="amount-words-left">
+            <p style="font-weight: bold; color: #374151; margin-bottom: 5px">
+              Total Amount (INR IN WORDS) :
+            </p>
+            <p style="font-size: 13px; font-weight: 600; margin-bottom: 10px">
+              Forty Eight Thousand Nine Hundred Seventy Eight Only .....
+            </p>
+            <p style="color: #4b5563; margin-top: 10px">
+              <strong>Note :</strong> Any dispute is Subject to Bangalore
+              Jurisdiction.
+            </p>
+          </div>
+          <div class="amount-words-right">
+            <div class="tax-row">
+              <span class="tax-label">Discount (if any)</span>
+              <span class="tax-amount">0.00</span>
+            </div>
+            <div
+              class="tax-row"
               style="
-                max-width: 840px;
-                background-color: #ffffff;
-                width: 100%;
-                border: 1px solid #000;
-                margin: 0 auto;
+                border-bottom: 2px solid #1e3a8a;
+                padding-bottom: 4px;
+                margin-bottom: 4px;
+                font-weight: bold;
               "
             >
-              <tbody>
-                <tr style="width: 100%">
-                  <td>
-                    <table
-                      align="center"
-                      width="100%"
-                      border="0"
-                      cellpadding="0"
-                      cellspacing="0"
-                      role="presentation"
-                      data-source-file="emails/ut-quotation.jsx"
-                      data-source-line="21"
-                      style="padding: 10px 20px; border-bottom: 2px solid #000"
-                    >
-                      <tbody>
-                        <tr>
-                          <td>
-                            <table
-                              width="100%"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="22"
-                            >
-                              <tr
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="23"
-                              >
-                                <td
-                                  style="
-                                    position: relative;
-                                    padding-bottom: 10px;
-                                  "
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="24"
-                                >
-                                  <div
-                                    style="
-                                      position: absolute;
-                                      top: 0;
-                                      right: 0;
-                                      text-align: right;
-                                      font-size: 12px;
-                                      line-height: 16px;
-                                    "
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="26"
-                                  >
-                                    <div
-                                      data-source-file="emails/ut-quotation.jsx"
-                                      data-source-line="27"
-                                    >
-                                      Email : info@theunitedtraders.co.in
-                                    </div>
-                                    <div
-                                      data-source-file="emails/ut-quotation.jsx"
-                                      data-source-line="28"
-                                    >
-                                      Mobile : 9845400122
-                                    </div>
-                                  </div>
-                                  <table
-                                    width="100%"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="32"
-                                  >
-                                    <tr
-                                      data-source-file="emails/ut-quotation.jsx"
-                                      data-source-line="33"
-                                    >
-                                      <td
-                                        width="80"
-                                        valign="top"
-                                        data-source-file="emails/ut-quotation.jsx"
-                                        data-source-line="34"
-                                      >
-                                        <img
-                                          src="https://theunitedtraders.co.in//crmapi//public//assets//images//company_images//logo.png"
-                                          style="width: 80px; height: auto"
-                                          data-source-file="emails/ut-quotation.jsx"
-                                          data-source-line="35"
-                                        />
-                                      </td>
-                                      <td
-                                        align="center"
-                                        data-source-file="emails/ut-quotation.jsx"
-                                        data-source-line="41"
-                                      >
-                                        <div
-                                          style="
-                                            font-size: 20px;
-                                            font-weight: bold;
-                                            margin-bottom: 5px;
-                                          "
-                                          data-source-file="emails/ut-quotation.jsx"
-                                          data-source-line="42"
-                                        >
-                                          QUOTATIONS
-                                        </div>
-                                        <div
-                                          style="
-                                            font-size: 26px;
-                                            font-weight: bold;
-                                            margin-bottom: 4px;
-                                          "
-                                          data-source-file="emails/ut-quotation.jsx"
-                                          data-source-line="43"
-                                        >
-                                          THE UNITED TRADERS (Regd.)
-                                        </div>
-                                        <div
-                                          style="
-                                            font-size: 10px;
-                                            font-weight: bold;
-                                            margin-bottom: 5px;
-                                          "
-                                          data-source-file="emails/ut-quotation.jsx"
-                                          data-source-line="46"
-                                        >
-                                          Dealers in : KRAFT PAPER &amp; DUPLEX
-                                          BOARD
-                                        </div>
-                                        <div
-                                          style="
-                                            font-size: 10px;
-                                            max-width: 350px;
-                                          "
-                                          data-source-file="emails/ut-quotation.jsx"
-                                          data-source-line="49"
-                                        >
-                                          #1141, 2nd Main, 1st Cross,
-                                          Hoskerehalli, BSK 3rd Stage, Bangalore
-                                          560085
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <table
-                      align="center"
-                      width="100%"
-                      border="0"
-                      cellpadding="0"
-                      cellspacing="0"
-                      role="presentation"
-                      data-source-file="emails/ut-quotation.jsx"
-                      data-source-line="62"
-                      style="padding: 15px; border-bottom: 1px solid #000"
-                    >
-                      <tbody>
-                        <tr>
-                          <td>
-                            <table
-                              width="100%"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="63"
-                            >
-                              <tr
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="64"
-                              >
-                                <td
-                                  width="60%"
-                                  valign="top"
-                                  style="font-size: 12px"
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="65"
-                                >
-                                  <div
-                                    style="
-                                      font-weight: bold;
-                                      margin-bottom: 5px;
-                                    "
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="66"
-                                  >
-                                    To, CARTON WORLD
-                                  </div>
-                                  <div
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="70"
-                                  >
-                                    83 BYRAVESHWARA INDS ESTATE, HEGGANHALLI
-                                    PEENYA 2ND STAGE, BANGALORE
-                                  </div>
-                                  <div
-                                    style="margin-top: 10px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="75"
-                                  >
-                                    Dear Sir,
-                                  </div>
-                                </td>
-                                <td
-                                  width="40%"
-                                  align="right"
-                                  style="font-size: 12px"
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="78"
-                                >
-                                  <div
-                                    style="margin-bottom: 5px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="79"
-                                  >
-                                    <strong
-                                      data-source-file="emails/ut-quotation.jsx"
-                                      data-source-line="80"
-                                      >Date:</strong
-                                    >
-                                    14-11-2025
-                                  </div>
-                                  <div
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="82"
-                                  >
-                                    <strong
-                                      data-source-file="emails/ut-quotation.jsx"
-                                      data-source-line="83"
-                                      >Quotation Ref :</strong
-                                    >
-                                    UT/QT/2/2025-26
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                            <div
-                              style="margin-top: 10px; font-size: 12px"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="89"
-                            >
-                              We take pleasure to offer Kraft Paper as per
-                              details
-                            </div>
-                            <div
-                              style="margin-top: 10px; font-size: 12px"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="93"
-                            >
-                              <div
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="94"
-                              >
-                                <strong
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="95"
-                                  >Mill :</strong
-                                >
-                                kasrthicj
-                              </div>
-                              <div
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="97"
-                              >
-                                <strong
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="98"
-                                  >Deckle :</strong
-                                >
-                                410 - 420 cms
-                              </div>
-                              <div
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="100"
-                              >
-                                <strong
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="101"
-                                  >GSM Range :</strong
-                                >
-                                120 - 250 GSM
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <table
-                      align="center"
-                      width="100%"
-                      border="0"
-                      cellpadding="0"
-                      cellspacing="0"
-                      role="presentation"
-                      data-source-file="emails/ut-quotation.jsx"
-                      data-source-line="107"
-                      style="padding: 8px 16px"
-                    >
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div
-                              style="
-                                text-align: center;
-                                font-size: 12px;
-                                font-weight: bold;
-                                margin-bottom: 10px;
-                              "
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="108"
-                            >
-                              Rate Per Kg (Rs.)
-                            </div>
-                            <table
-                              width="100%"
-                              style="
-                                border: 1px solid #000;
-                                border-collapse: collapse;
-                                font-size: 12px;
-                              "
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="110"
-                            >
-                              <thead
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="111"
-                              >
-                                <tr
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="112"
-                                >
-                                  <th
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="113"
-                                  >
-                                    QUALITY
-                                  </th>
-                                  <th
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="114"
-                                  >
-                                    BASIC
-                                    <br
-                                      data-source-file="emails/ut-quotation.jsx"
-                                      data-source-line="115"
-                                    />(Freight Included)
-                                  </th>
-                                  <th
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="118"
-                                  >
-                                    GST
-                                  </th>
-                                  <th
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="119"
-                                  >
-                                    INSURANCE
-                                  </th>
-                                  <th
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="120"
-                                  >
-                                    TOTAL EX.MILL
-                                  </th>
-                                  <th
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="121"
-                                  >
-                                    NET OF GST
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="125"
-                              >
-                                <tr
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="126"
-                                >
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="127"
-                                  >
-                                    Max
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="128"
-                                  >
-                                    34.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="129"
-                                  >
-                                    54.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="130"
-                                  >
-                                    566.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="131"
-                                  >
-                                    7.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="132"
-                                  >
-                                    78.00
-                                  </td>
-                                </tr>
-                                <tr
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="135"
-                                >
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="136"
-                                  >
-                                    230/LWC/REELS/MANGOOS/122/24/10*22
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="137"
-                                  >
-                                    45.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="138"
-                                  >
-                                    45.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="139"
-                                  >
-                                    45.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="140"
-                                  >
-                                    45.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="141"
-                                  >
-                                    45.00
-                                  </td>
-                                </tr>
-                                <tr
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="144"
-                                >
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="145"
-                                  >
-                                    230/LWC/REELS
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="146"
-                                  >
-                                    56.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="147"
-                                  >
-                                    673.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="148"
-                                  >
-                                    43.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="149"
-                                  >
-                                    34.00
-                                  </td>
-                                  <td
-                                    style="border: 1px solid #000; padding: 6px"
-                                    data-source-file="emails/ut-quotation.jsx"
-                                    data-source-line="150"
-                                  >
-                                    34.00
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <table
-                      align="center"
-                      width="100%"
-                      border="0"
-                      cellpadding="0"
-                      cellspacing="0"
-                      role="presentation"
-                      data-source-file="emails/ut-quotation.jsx"
-                      data-source-line="157"
-                      style="padding: 8px 16px; font-size: 12px"
-                    >
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="158"
-                            >
-                              <strong
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="159"
-                                >EXTRA CHARGES :</strong
-                              >
-                              FOR GYT - Rs 1.00 KG
-                            </div>
-                            <div
-                              style="margin-top: 10px"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="162"
-                            >
-                              <div
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="163"
-                                style="margin-bottom: 10px"
-                              >
-                                <strong
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="164"
-                                  >FREIGHT :</strong
-                                >
-                                Included
-                              </div>
-                              <div
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="166"
-                                style="margin-bottom: 10px"
-                              >
-                                <strong
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="167"
-                                  >PAYMENT :</strong
-                                >
-                                WITH IN 15 DAYS
-                              </div>
-                              <div
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="169"
-                                style="margin-bottom: 10px"
-                              >
-                                <strong
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="170"
-                                  >DELIVERY :</strong
-                                >
-                                8 - 10 Days from order receipt
-                              </div>
-                              <div
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="172"
-                                style="margin-bottom: 10px"
-                              >
-                                <strong
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="173"
-                                  >FURNISH :</strong
-                                >
-                                INDIAN + IMPORTED waste
-                              </div>
-                              <div
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="175"
-                              >
-                                <strong
-                                  data-source-file="emails/ut-quotation.jsx"
-                                  data-source-line="176"
-                                  >SAMPLES :</strong
-                                >
-                                Disclosed
-                              </div>
-                            </div>
-                            <div
-                              style="margin-top: 15px"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="180"
-                            >
-                              We assure you of our prompt and efficient
-                              services.
-                            </div>
-                            <div
-                              style="margin-top: 15px; margin-bottom: 10px"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="184"
-                            >
-                              Thanking You,
-                            </div>
-                            <div
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="185"
-                              style="margin-bottom: 10px"
-                            >
-                              Your&#x27;s faithfully,
-                            </div>
-                            <div
-                              style="margin-bottom: 30px"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="186"
-                            >
-                              For THE UNITED TRADERS (Regd.)
-                            </div>
-                            <div
-                              style="position: relative; margin-top: 40px"
-                              data-source-file="emails/ut-quotation.jsx"
-                              data-source-line="190"
-                            >
-                              <img
-                                src="https://theunitedtraders.co.in//crmapi//public//assets//images//company_images//sign.jpeg"
-                                style="
-                                  width: 120px;
-                                  position: absolute;
-                                  top: -65px;
-                                  left: 50px;
-                                "
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="191"
-                              />
-                              <div
-                                style="font-size: 12px; margin-top: 80px"
-                                data-source-file="emails/ut-quotation.jsx"
-                                data-source-line="200"
-                              >
-                                Authorised Signatory
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!--7--><!--/$-->
+              <span class="tax-label">Gross Total :</span>
+              <span class="tax-amount">Rs. 45,250.00</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">ADD - CGST 9% :</span>
+              <span class="tax-amount">Rs. 4,072.50</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">ADD - SGST 9% :</span>
+              <span class="tax-amount">Rs. 4,072.50</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">ADD - IGST 0% :</span>
+              <span class="tax-amount">-</span>
+            </div>
+            <div
+              class="tax-row"
+              style="
+                border-top: 2px solid #1e3a8a;
+                padding-top: 4px;
+                margin-top: 4px;
+                font-weight: bold;
+                color: #1e3a8a;
+              "
+            >
+              <span class="tax-label">Total Amount :</span>
+              <span class="tax-amount">Rs. 53,395.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bank Details & Signature -->
+        <div class="bank-section">
+          <div class="bank-details">
+            <p style="font-weight: bold; margin-bottom: 5px">
+              Acc Name : The United Trades (R)
+            </p>
+            <p style="margin-bottom: 3px">Bank : State Bank of India</p>
+            <p style="margin-bottom: 3px">Branch : Commercial Street Branch</p>
+            <p style="margin-bottom: 3px">A/C No : 1234567890123</p>
+            <p>IFSC Code : SBIN0001234</p>
+          </div>
+          <div class="signature-section">
+            <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px">
+              THE UNITED TRADERS (Regd.)
+            </p>
+            <img
+              src="https://via.placeholder.com/112x60?text=Signature"
+              alt="Signature"
+              class="signature-img"
+            />
+            <p style="font-size: 11px; margin-top: 48px">
+              Authorised Signatory
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Footer -->
+        <div class="contact-footer">
+          <span
+            ><strong>Corr. Address :</strong> Shop No. 15, Ground Floor, MG
+            Road, Bangalore - 560001</span
+          >
+          <span class="contact-icons">
+            <span class="contact-item">
+              <span class="icon"></span>8626728620
+            </span>
+            <span class="contact-item">
+              <span class="icon"></span>9854420122
+            </span>
+            <span class="contact-item">
+              <span class="icon"></span>united1141@email.com
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
